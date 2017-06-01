@@ -7,7 +7,7 @@ using ToDoApp.Domain.Filters;
 using ToDoApp.Domain.Repositories;
 using Dapper;
 
-namespace TodoApp.Data.Repositories
+namespace ToDoApp.Data.Repositories
 {
     public class ToDoRepository : RepositoryBase, IToDoRepository
     {

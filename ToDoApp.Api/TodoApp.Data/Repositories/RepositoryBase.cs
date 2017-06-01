@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text;
 
-namespace TodoApp.Data.Repositories
+namespace ToDoApp.Data.Repositories
 {
     public abstract class RepositoryBase
     {

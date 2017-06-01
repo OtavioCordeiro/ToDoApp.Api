@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using TodoApp.Data.Repositories;
+using ToDoApp.Data.Repositories;
 using ToDoApp.Domain.Repositories;
 
-namespace TodoApp.Data.IoC
+namespace ToDoApp.Data.IoC
 {
     public static class Module
     {

@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5D3DAD92-9BE
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.Domain", "ToDoApp.Domain\ToDoApp.Domain.csproj", "{AAD6DEAF-575C-449C-9C93-E09DCA3BAA5D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.Data", "TodoApp.Data\TodoApp.Data.csproj", "{BF5F3561-4EBE-43B3-8ED2-DFD989F3E6E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.Data", "TodoApp.Data\ToDoApp.Data.csproj", "{BF5F3561-4EBE-43B3-8ED2-DFD989F3E6E1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToDoApp.DomainServices", "ToDoApp.DomainServices\ToDoApp.DomainServices.csproj", "{E2FF7496-F15F-4F94-9891-16CCF771BC86}"
 EndProject
