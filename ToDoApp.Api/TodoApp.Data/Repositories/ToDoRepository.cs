@@ -13,7 +13,7 @@ namespace TodoApp.Data.Repositories
     {
         public ToDoRepository(IConfigurationRoot configuration) : base(configuration) { }
 
-        public Todo Create(Todo todo)
+        public ToDo Create(ToDo todo)
         {
             todo.Id = connection.QueryFirst<int>("exec todo_sp_create @Text, @IsCompleted", todo);
             return todo;
@@ -26,21 +26,21 @@ namespace TodoApp.Data.Repositories
             return affectedRowns > 0;
         }
 
-        public Todo GetById(int id)
+        public ToDo GetById(int id)
         {
-            Todo result = connection.QueryFirstOrDefault<Todo>("Exec todo_sp_get @Id", new { Id = id });
+            ToDo result = connection.QueryFirstOrDefault<ToDo>("Exec todo_sp_get @Id", new { Id = id });
 
             return result;
         }
 
-        public IEnumerable<Todo> List(ToDoFilter filter)
+        public IEnumerable<ToDo> List(ToDoFilter filter)
         {
-            IEnumerable<Todo> result = connection.Query<Todo>("exec todo_sp_list @Id, @Text, @IsCompleted", filter);
+            IEnumerable<ToDo> result = connection.Query<ToDo>("exec todo_sp_list @Id, @Text, @IsCompleted", filter);
 
             return result;
         }
 
-        public bool Update(Todo todo)
+        public bool Update(ToDo todo)
         {
             int affectedRowns = connection.Execute("exec todo_sp_list @Id, @Text, @IsCompleted", todo);
 

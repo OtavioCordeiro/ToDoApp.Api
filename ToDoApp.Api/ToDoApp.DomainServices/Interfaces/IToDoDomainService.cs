@@ -8,13 +8,13 @@ namespace ToDoApp.DomainServices.Interfaces
 {
     public interface IToDoDomainService
     {
-        Todo Create(Todo todo);
+        ToDo Create(ToDo todo);
 
-        IEnumerable<Todo> List(ToDoFilter filter);
+        IEnumerable<ToDo> List(ToDoFilter filter);
 
-        Todo GetById(int id);
+        ToDo GetById(int id);
 
-        bool Update(Todo todo);
+        bool Update(ToDo todo);
 
         bool Delete(int id);
     }

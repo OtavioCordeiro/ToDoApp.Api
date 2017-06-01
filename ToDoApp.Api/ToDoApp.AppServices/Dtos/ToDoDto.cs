@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ToDoApp.Domain.Entities
+namespace ToDoApp.AppServices.Dtos
 {
-   public  class ToDo
+    public class ToDoDto
     {
         public int Id { get; set; }
 

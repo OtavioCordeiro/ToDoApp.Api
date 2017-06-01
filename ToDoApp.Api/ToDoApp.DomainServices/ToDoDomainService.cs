@@ -17,7 +17,7 @@ namespace ToDoApp.DomainServices
             this.repository = repository;
         }
 
-        public Todo Create(Todo todo)
+        public ToDo Create(ToDo todo)
         {
             return this.repository.Create(todo);
         }
@@ -27,17 +27,17 @@ namespace ToDoApp.DomainServices
             return this.repository.Delete(id);
         }
 
-        public Todo GetById(int id)
+        public ToDo GetById(int id)
         {
             return this.repository.GetById(id);
         }
 
-        public IEnumerable<Todo> List(ToDoFilter filter)
+        public IEnumerable<ToDo> List(ToDoFilter filter)
         {
             return this.repository.List(filter);
         }
 
-        public bool Update(Todo todo)
+        public bool Update(ToDo todo)
         {
             return this.repository.Update(todo);
         }
