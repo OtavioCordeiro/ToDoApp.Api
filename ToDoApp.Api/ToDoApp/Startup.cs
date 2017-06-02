@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Swashbuckle.Swagger.Model;
 
 namespace ToDoApp
 {
@@ -29,6 +30,17 @@ namespace ToDoApp
         {
             IoC.IoCConfiguration.Configure(services);
             services.AddSingleton(Configuration);
+
+            string pathToDoc = Configuration["Swagger:Path"];
+
+            services.AddSwaggerGen(c =>
+                   {
+                       c.SingleApiVersion(new Info { Title = "ToDoApp API", Version = "v1", TermsOfService = "none", Description = "Aplicação para fazer coisas" });
+                       c.IncludeXmlComments(pathToDoc);
+                       c.DescribeAllEnumsAsStrings();
+                   }
+
+            );
 
             // Add framework services.
             services.AddMvc();
@@ -60,6 +72,9 @@ namespace ToDoApp
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseSwagger();
+            app.UseSwaggerUi();
         }
     }
 }
