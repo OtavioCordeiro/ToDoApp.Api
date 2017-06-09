@@ -45,6 +45,7 @@ namespace ToDoApp.Controllers
         [HttpPut("{id}")]
         public bool Put(int id, [FromBody]ToDoDto model)
         {
+            model.Id = id;
             return this.appService.Update(model);
         }
 
