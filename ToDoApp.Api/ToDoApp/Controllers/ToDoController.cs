@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ToDoApp.AppServices.Dtos;
 using ToDoApp.AppServices.Interfaces;
+using ToDoApp.Validators;
+using ToDoApp.Results;
+using ToDoApp.Extensions;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,46 +17,125 @@ namespace ToDoApp.Controllers
     public class ToDoController : Controller
     {
         private readonly IToDoAppService appService;
+        private readonly ToDoValidator Validator;
 
-        public ToDoController(IToDoAppService appService)
+        public ToDoController(IToDoAppService appService, ToDoValidator validator)
         {
             this.appService = appService;
+            this.Validator = validator;
         }
 
-        // GET: api/values
+        // GET: api/todo
         [HttpGet]
-        public IEnumerable<ToDoDto> Get([FromQuery]ToDoFilterDto filter)
+        public GenericResult<IEnumerable<ToDoDto>> Get([FromQuery]ToDoFilterDto filter)
         {
-            return this.appService.List(filter);
+            var result = new GenericResult<IEnumerable<ToDoDto>>();
+
+            try
+            {
+                result.Result = this.appService.List(filter);
+                result.Success = true;
+            }
+            catch (Exception ex)
+            {
+                result.Errors = new string[] { ex.Message };
+            }
+
+            return result;
         }
 
-        // GET api/values/5
+        // GET api/todo/5
         [HttpGet("{id}")]
-        public ToDoDto Get(int id)
+        public GenericResult<ToDoDto> Get(int id)
         {
-            return this.appService.GetById(id);
+            var result = new GenericResult<ToDoDto>();
+
+            try
+            {
+                result.Result = this.appService.GetById(id);
+                result.Success = true;
+            }
+            catch (Exception ex)
+            {
+                result.Errors = new string[] { ex.Message };
+            }
+
+            return result;
         }
 
-        // POST api/values
+        // POST api/todo
         [HttpPost]
-        public ToDoDto Post([FromBody]ToDoDto model)
+        public GenericResult<ToDoDto> Post([FromBody]ToDoDto model)
         {
-            return this.appService.Create(model);
+            var result = new GenericResult<ToDoDto>();
+
+            var validationResult = Validator.Validate(model);
+            if (validationResult.IsValid)
+            {
+                try
+                {
+                    result.Result = this.appService.Create(model);
+                    result.Success = true;
+                }
+                catch (Exception ex)
+                {
+
+                    result.Errors = new string[] { ex.Message };
+                }
+            }
+            else
+            {
+                result.Errors = validationResult.GetErrors();
+            }
+
+
+            return result;
         }
 
-        // PUT api/values/5
+        // PUT api/todo/5
         [HttpPut("{id}")]
-        public bool Put(int id, [FromBody]ToDoDto model)
+        public GenericResult Put(int id, [FromBody]ToDoDto model)
         {
             model.Id = id;
-            return this.appService.Update(model);
+
+            var result = new GenericResult();
+
+            var validationResult = Validator.Validate(model);
+            if (validationResult.IsValid)
+            {
+                try
+                {
+                    result.Success = this.appService.Update(model);
+                }
+                catch (Exception ex)
+                {
+                    result.Errors = new string[] { ex.Message };
+                }
+            }
+            else
+            {
+                result.Errors = validationResult.GetErrors();
+            }
+
+            return result;
         }
 
-        // DELETE api/values/5
+        // DELETE api/todo/5
         [HttpDelete("{id}")]
-        public bool Delete(int id)
+        public GenericResult Delete(int id)
         {
-            return this.appService.Delete(id);
+            var result = new GenericResult();
+
+            try
+            {
+                result.Success = this.appService.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                result.Errors = new string[] { ex.Message };
+            }
+
+            return result;
         }
     }
 }

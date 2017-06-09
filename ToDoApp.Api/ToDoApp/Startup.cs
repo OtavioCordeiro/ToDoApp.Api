@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.Swagger.Model;
+using ToDoApp.Validators;
 
 namespace ToDoApp
 {
@@ -28,6 +29,8 @@ namespace ToDoApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<ToDoValidator>();
+
             IoC.IoCConfiguration.Configure(services);
             services.AddSingleton(Configuration);
 
